@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { actions } from "./store";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import Header from './components/Header'
@@ -11,7 +12,17 @@ import About from "./components/About";
 function App() {
   const [showTaskForm, setShowTaskForm] = useState(false)
   const [tasks, setTasks] = useState([])
-  const counter = useSelector( state=> state.counter)
+  const counter = useSelector( (state) => state.counter)
+  const dispatch = useDispatch()
+  const addValue = () =>{
+    dispatch(actions.addValue(10))
+  }
+  const increment = () =>{
+    dispatch(actions.increment())
+  }
+  const decrement = ( ) =>{
+    dispatch(actions.decrement())
+  }
   
   useEffect(()=>{
     const getTasks = async () =>{
@@ -108,6 +119,9 @@ function App() {
       </Routes>
       <Footer />
       <h1>Counter {counter}</h1>
+      <button onClick={increment}>Increment</button>
+      <button onClick={decrement}>Decrement</button>
+      <button onClick={addValue}>Add Value</button>
 
     </div>
     </Router>
